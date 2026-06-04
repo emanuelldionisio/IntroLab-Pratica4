@@ -24,7 +24,10 @@ for i in range(6):
     
     result[i] = np.linalg.solve(A, B)
     
-    print(f"Termistor {i+1}: {result[i]}")
+    with open(f"Tarefa1/dados/term{i+1}.txt", "w") as f:
+        f.write(f"A: {result[i][0]}\n")
+        f.write(f"B: {result[i][1]}\n")
+        f.write(f"C: {result[i][2]}\n")
 
     res = np.linspace(100, 50000, 1000)
 
