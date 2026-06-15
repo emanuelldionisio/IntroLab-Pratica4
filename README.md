@@ -5,6 +5,7 @@ Let it go
 
 ### Tarefa 1 - Equação de Steinhart-Hart
 $$\dfrac{1}{T} = A + B\ln{R} + C\ln{R}^3$$
+
 Onde
 - $T$ é a temperatura a qual o termistor foi exposto (K)
 - $R$ é a resistência do termistor ($\Omega$)
@@ -12,6 +13,7 @@ Onde
 
 ### Tarefa 2 - Equação do calor latente
 $$L = \dfrac{Q}{m} = \dfrac{P\Delta t}{m}$$
+
 Onde
 - $L$ é o calor latente ($J/kg$)
 - $Q$ é o calor transferido ($J$)
