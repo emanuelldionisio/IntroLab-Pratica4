@@ -15,11 +15,11 @@ Onde
 $$L = \dfrac{Q}{m} = \dfrac{P\Delta t}{m}$$
 
 Onde
-- $L$ é o calor latente ($J/kg$)
-- $Q$ é o calor transferido ($J$)
-- $m$ é a massa do corpo ($kg$)
-- $P$ é a potência sobre a qual o gelo foi exposto ($W$)
-- $\Delta t$ é o tempo pelo qual o gelo recebeu calor ($s$)
+- $L$ é o calor latente (J/g)
+- $Q$ é o calor transferido (J)
+- $m$ é a massa do corpo (g)
+- $P$ é a potência sobre a qual o gelo foi exposto (W)
+- $\Delta t$ é o tempo pelo qual o gelo recebeu calor (s)
 
 Valor de referência para $L$: 334,72 J/g
 
