@@ -20,17 +20,31 @@ for i in range(6):
         [1, logs_R[2], logs_R[2] ** 3]
     ])
     
+    AInv = np.linalg.inv(A)
+    
     B = np.array([1 / dados[i]['temp'][j] for j in range(3)])  # 1/T_kelvin
+    Err = np.array(
+        [[
+            0,
+            dados[i]['err'][j]/dados[i]['res'][j],
+            3 * np.log(dados[i]['res'][j])**2 * dados[i]['err'][j]/dados[i]['res'][j]
+        ]
+        for j in range(3)]
+    )
+    
+    resSup = np.linalg.solve(A+Err, B)
+    resInf = np.linalg.solve(A-Err, B)
+    Cov = np.abs(resSup - resInf) / 2
     
     result[i] = np.linalg.solve(A, B)
     
     with open(f"Tarefa1/dados/term{i+1}.txt", "w") as f:
-        f.write(f"A: {result[i][0]}\n")
-        f.write(f"B: {result[i][1]}\n")
-        f.write(f"C: {result[i][2]}\n")
+        f.write(f"A: {result[i][0]}, incerteza: {Cov[0]}\n")
+        f.write(f"B: {result[i][1]}, incerteza: {Cov[1]}\n")
+        f.write(f"C: {result[i][2]}, incerteza: {Cov[2]}\n")
 
     res = np.linspace(100, 50000, 1000)
-
+    print(np.abs(Cov / result[i]))
     plt.title(f"Termistor {i+1}")
     plt.xlabel("Resistência (Ohm)")
     plt.ylabel("Temperatura (K)")

@@ -1,19 +1,35 @@
-def calcular_calor_latente(massa_gelo, tempo, potencia):
-    """
-    Calcula o calor latente de fusão do gelo a partir da massa, tempo e potência fornecidos pelo usuário.
-    - `massa_gelo`: a massa do gelo (kg)
-    - `tempo`: o tempo durante o qual a potência foi aplicada (s)
-    - `potencia`: a potência aplicada para derreter o gelo (W)
-    O calor latente é calculado usando a fórmula: Q = P * t / m
-    onde Q é o calor latente, P é a potência, t é o tempo e
-    m é a massa do gelo.
-    """
-    return potencia * tempo / massa_gelo
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
-massa_gelo = float(input())
-tempo = float(input())
-potencia = float(input())
+dados1 = pd.read_csv("Tarefa2/dados/Tentativa1.csv")
+dados2 = pd.read_csv("Tarefa2/dados/Tentativa2.csv")
 
-calor_latente = calcular_calor_latente(massa_gelo, tempo, potencia)
+std1 = np.std(dados1['Calor latente (j/g)'])
+std2 = np.std(dados2['Calor latente (j/g)'])
 
-print(calor_latente)
+# Erro estatístico 
+err1 = np.sqrt((std1/np.sqrt(14))**2)
+err2 = np.sqrt((std2/np.sqrt(16))**2)
+
+plt.title(f"Frequênca de Calor Latente - Tentativa 1")
+plt.xlabel("Calor latente (j/g)")
+plt.ylabel("Frequência")
+contagem, bordas, barras = plt.hist(dados1['Calor latente (j/g)'], bins=7, edgecolor='black')
+plt.xticks(bordas, rotation=45) 
+plt.xlim(bordas[0], bordas[-1])
+plt.savefig("Tarefa2/graficos/tentativa1.png")
+plt.close()
+
+plt.title(f"Frequênca de Calor Latente - Tentativa 2")
+plt.xlabel("Calor latente (j/g)")
+plt.ylabel("Frequência")
+contagem, bordas, barras = plt.hist(dados2['Calor latente (j/g)'], bins=7, edgecolor='black')
+plt.xticks(bordas, rotation=45) 
+plt.xlim(bordas[0], bordas[-1])
+plt.savefig("Tarefa2/graficos/tentativa2.png")
+plt.close()
+
+with open("Tarefa2/dados/resultado.txt", "w") as f:
+    f.write(f"Tentativa 1: {np.mean(dados1['Calor latente (j/g)'])} +- {err1}\n")
+    f.write(f"Tentativa 2: {np.mean(dados2['Calor latente (j/g)'])} +- {err2}\n")
