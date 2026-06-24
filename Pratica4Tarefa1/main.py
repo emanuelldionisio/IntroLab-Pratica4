@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 def steinharthart(res, a, b, c):
     return 1/(a + b * np.log(res) + c * np.log(res)**3)
 
-dados = [pd.read_csv(f"Tarefa1/dados/term{i+1}.csv") for i in range(6)]
+dados = [pd.read_csv(f"Pratica4Tarefa1/dados/term{i+1}.csv") for i in range(6)]
 result = [0] * 6
 
 for i in range(6):
@@ -38,16 +38,20 @@ for i in range(6):
     
     result[i] = np.linalg.solve(A, B)
     
-    with open(f"Tarefa1/dados/term{i+1}.txt", "w") as f:
+    with open(f"Pratica4Tarefa1/dados/term{i+1}.txt", "w") as f:
         f.write(f"A: {result[i][0]}, incerteza: {Cov[0]}\n")
         f.write(f"B: {result[i][1]}, incerteza: {Cov[1]}\n")
         f.write(f"C: {result[i][2]}, incerteza: {Cov[2]}\n")
 
     res = np.linspace(100, 50000, 1000)
-    print(np.abs(Cov / result[i]))
+    pontos = np.array([None]*len(res))
+    for j in range(3):
+        pontos[int(dados[i]['res'].iloc[j]/49.9)] = dados[i]['temp'].iloc[j]
     plt.title(f"Termistor {i+1}")
     plt.xlabel("Resistência (Ohm)")
     plt.ylabel("Temperatura (K)")
-    plt.plot(res, steinharthart(res, *result[i]))
-    plt.savefig(f"Tarefa1/graficos/term{i+1}.png")
+    plt.plot(res, steinharthart(res, *result[i]), label="Resolução do sistema de equações")
+    plt.plot(res, pontos, 'o', label="Dados experimentais")
+    plt.legend()
+    plt.savefig(f"Pratica4Tarefa1/graficos/term{i+1}.png")
     plt.close()
