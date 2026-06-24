@@ -2,8 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-pot = 4.9
-massa = 69.7
+pot = 9
+massa = 218.1
 # Potencia do que deu certo 1: 9
 # Massa do que deu certo 1: 160 + 58.1
 
@@ -13,12 +13,12 @@ massa = 69.7
 # 6.4
 
 df = pd.read_csv(
-    "2026-06-22_19-24-26_entrada1.txt",
+    "P5T1_agua_term6.txt",
     sep=":",
     names=["t", "T"]
 )
 
-df = df[3500:4500]
+df = df[9000:11000]
 
 # Parse timestamps
 tempo = pd.to_datetime(df["t"], format="%H-%M-%S-%f")
